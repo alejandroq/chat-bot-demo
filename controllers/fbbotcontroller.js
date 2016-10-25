@@ -7,6 +7,8 @@ var request = require('request');
 var url = 'https://' + process.env.HOST_NAME + '/';
 var numberOfComicsAvailable = 1750; // The number of comics available on comic api
 
+var request = require('superagent');    
+
 // Init controller
 var controller = botkit.facebookbot({
     debug: true,
@@ -44,12 +46,19 @@ controller.hears(['hello', 'hi', 'hey'], 'message_received', function(bot, messa
     bot.reply(message, 'Hey there.');
 });
 
-// User sends greetings
+// User sends name
 controller.hears(['My name is (.*)'], 'message_received', function(bot, message) {
     name = message.match[1];
     response = 'Hello ' + name + '.'
     bot.reply(message, response);
 });
+
+// User asks bot to test
+controller.hears(['Test my app'], 'message_received', function(bot, message) {
+    request.get('http://415ec823.ngrok.io/actions/test');
+    bot.reply(message, 'Check Trello for Test Results on your Application!');
+});
+
 
 // User wants to see buttons example
 controller.hears(['button(s?)'], 'message_received', function(bot, message) {
