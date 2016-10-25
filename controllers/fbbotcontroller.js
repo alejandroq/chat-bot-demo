@@ -44,6 +44,13 @@ controller.hears(['hello', 'hi', 'hey'], 'message_received', function(bot, messa
     bot.reply(message, 'Hey there.');
 });
 
+// User sends greetings
+controller.hears(['My name is (.*)'], 'message_received', function(bot, message) {
+    name = message.match[1];
+    response = 'Hello ' + name + '.'
+    bot.reply(message, response);
+});
+
 // User wants to see buttons example
 controller.hears(['button(s?)'], 'message_received', function(bot, message) {
     bot.reply(message, createButtonMessage());
