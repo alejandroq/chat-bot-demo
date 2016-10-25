@@ -55,7 +55,9 @@ controller.hears(['My name is (.*)'], 'message_received', function(bot, message)
 
 // User asks bot to test
 controller.hears(['Test my app'], 'message_received', function(bot, message) {
-    request.get('http://415ec823.ngrok.io/actions/test');
+    request.get('http://415ec823.ngrok.io/actions/test').end(function(err, res){ 
+        console.log(res)
+    });;
     bot.reply(message, 'Check Trello for Test Results on your Application!');
 });
 
